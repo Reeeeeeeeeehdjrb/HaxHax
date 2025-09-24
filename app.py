@@ -1,20 +1,24 @@
 from flask import Flask
-import subprocess
 import threading
+import subprocess
 import sys
+import os
 
 app = Flask(__name__)
 
+# === Run bot in background thread ===
 def run_discord_bot():
     subprocess.run([sys.executable, "bot.py"])
 
-# Start the Discord bot in a separate thread
 bot_thread = threading.Thread(target=run_discord_bot, daemon=True)
 bot_thread.start()
 
+# === Web endpoint for UptimeRobot ===
 @app.route('/')
 def index():
-    return "Discord bot is running in the background!"
+    return "Bot is running in the background!"
 
+# === Start Flask ===
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
