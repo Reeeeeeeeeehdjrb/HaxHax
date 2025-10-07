@@ -1,0 +1,17 @@
+# Exported from Render on 2025-10-07T18:58:38Z
+version: "1"
+services:
+- type: web
+  name: HaxHax-1
+  runtime: python
+  repo: https://github.com/Reeeeeeeeeehdjrb/HaxHax
+  plan: free
+  envVars:
+  - key: GOOGLE_CREDS_JSON
+    sync: false
+  - key: DISCORD_TOKEN
+    sync: false
+  region: oregon
+  buildCommand: pip install -r requirements.txt
+  startCommand: python3 app.py
+  autoDeployTrigger: "off"
